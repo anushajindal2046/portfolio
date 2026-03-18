@@ -29,7 +29,7 @@ transporter.verify().then(
   },
   (error) => {
     console.error("SMTP transporter verification failed:", error);
-  }
+  },
 );
 
 app.post("/api/contact", async (req, res) => {
@@ -38,9 +38,22 @@ app.post("/api/contact", async (req, res) => {
   const trimmedEmail = String(email || "").trim();
   const trimmedMessage = String(message || "").trim();
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail);
+  const smtpConfigured =
+    Boolean(process.env.SMTP_USER) &&
+    Boolean(process.env.SMTP_PASS) &&
+    process.env.SMTP_USER !== "your@gmail.com";
 
   if (!trimmedName || !trimmedEmail || !trimmedMessage || !emailOk) {
-    return res.status(400).json({ success: false, error: "Missing required fields" });
+    return res
+      .status(400)
+      .json({ success: false, error: "Missing required fields" });
+  }
+
+  if (!smtpConfigured) {
+    return res.status(500).json({
+      success: false,
+      error: "SMTP is not configured. Update SMTP_USER and SMTP_PASS in .env",
+    });
   }
 
   try {
@@ -59,11 +72,12 @@ app.post("/api/contact", async (req, res) => {
     return res.json({ success: true });
   } catch (error) {
     console.error("Error sending contact email:", error);
-    return res.status(500).json({ success: false, error: "Failed to send email" });
+    return res
+      .status(500)
+      .json({ success: false, error: "Failed to send email" });
   }
 });
 
 app.listen(port, () => {
   console.log(`Contact server listening on http://localhost:${port}`);
 });
-

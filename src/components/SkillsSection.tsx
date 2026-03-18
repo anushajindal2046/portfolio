@@ -1,4 +1,24 @@
 import { motion } from "framer-motion";
+import type { LucideIcon } from "lucide-react";
+import {
+  Braces,
+  Cloud,
+  Code2,
+  Cpu,
+  Database,
+  GitBranch,
+  Globe,
+  HardDrive,
+  Layers,
+  MessageSquare,
+  Monitor,
+  Network,
+  Server,
+  ShieldCheck,
+  TerminalSquare,
+  Users,
+  Wrench,
+} from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 const skillCategories = [
@@ -9,6 +29,38 @@ const skillCategories = [
   { title: "Core Concepts", skills: ["DSA", "OOP", "DBMS", "OS", "Networks", "System Design"] },
   { title: "Soft Skills", skills: ["Communication", "Leadership", "Team Management", "Problem Solving"] },
 ];
+
+const skillIconMap: Record<string, LucideIcon> = {
+  Java: Code2,
+  "C++": Braces,
+  Python: TerminalSquare,
+  SQL: Database,
+  JavaScript: Braces,
+  "HTML/CSS": Globe,
+  "Node.js": Server,
+  Express: Layers,
+  "Spring Boot": Cpu,
+  React: Monitor,
+  MySQL: Database,
+  MongoDB: HardDrive,
+  Redis: Database,
+  "AWS EC2": Cloud,
+  "AWS S3": Cloud,
+  Git: GitBranch,
+  Postman: Wrench,
+  "VS Code": Monitor,
+  "Socket.IO": Network,
+  DSA: Braces,
+  OOP: Layers,
+  DBMS: Database,
+  OS: Cpu,
+  Networks: Network,
+  "System Design": Server,
+  Communication: MessageSquare,
+  Leadership: ShieldCheck,
+  "Team Management": Users,
+  "Problem Solving": Wrench,
+};
 
 const SkillsSection = () => (
   <section id="skills" className="py-16 lg:py-20 border-t border-border relative">
@@ -40,8 +92,12 @@ const SkillsSection = () => (
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: j * 0.04 + 0.2 }}
-                    className="px-3 py-1.5 text-xs border border-border text-secondary-foreground hover:border-foreground/30 hover:text-foreground transition-all duration-500 cursor-default"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs border border-border text-secondary-foreground hover:border-foreground/30 hover:text-foreground transition-all duration-500 cursor-default"
                   >
+                    {(() => {
+                      const Icon = skillIconMap[skill] ?? Wrench;
+                      return <Icon size={12} strokeWidth={1.8} />;
+                    })()}
                     {skill}
                   </motion.span>
                 ))}

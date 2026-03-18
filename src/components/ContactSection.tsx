@@ -34,7 +34,14 @@ const ContactSection = () => {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send message");
+        let backendMessage = "";
+        try {
+          const data = await response.json();
+          backendMessage = data?.error || "";
+        } catch {
+          backendMessage = "";
+        }
+        throw new Error(backendMessage || "Failed to send message");
       }
 
       toast({
@@ -44,10 +51,11 @@ const ContactSection = () => {
 
       setForm({ name: "", email: "", message: "" });
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : "Please try again later.";
       toast({
         variant: "destructive",
         title: "Something went wrong",
-        description: "Please try again or email me directly at anushajindal1940@gmail.com.",
+        description: `${errorMessage}. If the issue persists, email anushajindal1940@gmail.com directly.`,
       });
     } finally {
       setIsSubmitting(false);

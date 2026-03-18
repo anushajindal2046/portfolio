@@ -103,6 +103,86 @@
 }
 
 @layer utilities {
+  .projects-stage {
+    background:
+      linear-gradient(to right, hsl(var(--border) / 0.14) 1px, transparent 1px) 0 0 / 54px 54px,
+      linear-gradient(to bottom, hsl(var(--border) / 0.14) 1px, transparent 1px) 0 0 / 54px 54px,
+      radial-gradient(1300px 520px at 14% -10%, hsl(var(--accent) / 0.18), transparent 60%),
+      hsl(var(--background));
+  }
+
+  .projects-orb {
+    position: absolute;
+    border-radius: 999px;
+    filter: blur(36px);
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  .projects-orb-left {
+    top: 28px;
+    left: 30px;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle at 30% 30%, hsl(222 88% 70% / 0.6), hsl(76 92% 45% / 0.32) 55%, transparent 70%);
+  }
+
+  .projects-orb-right {
+    bottom: 40px;
+    right: 30px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle at 30% 30%, hsl(122 90% 58% / 0.28), transparent 68%);
+  }
+
+  .projects-shell {
+    position: relative;
+    padding-top: 88px;
+  }
+
+  .lanyard-clip {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 74px;
+    height: 24px;
+    border-radius: 0 0 18px 18px;
+    border: 1px solid hsl(var(--border));
+    background: linear-gradient(180deg, hsl(var(--card)) 0%, hsl(var(--background)) 100%);
+    box-shadow: 0 8px 24px hsl(0 0% 0% / 0.34);
+  }
+
+  .lanyard-strap {
+    position: absolute;
+    top: 23px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 18px;
+    height: 108px;
+    border-radius: 999px;
+    border: 1px solid hsl(var(--accent) / 0.35);
+    background: linear-gradient(180deg, hsl(var(--accent) / 0.9) 0%, hsl(var(--accent) / 0.2) 75%, transparent 100%);
+    box-shadow: 0 0 24px hsl(var(--accent) / 0.36);
+    z-index: 1;
+  }
+
+  .lanyard-card {
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    border-radius: 24px;
+    border: 1px solid hsl(var(--border));
+    background: linear-gradient(165deg, hsl(var(--card) / 0.94) 0%, hsl(var(--background) / 0.84) 100%);
+    box-shadow: 0 25px 70px hsl(0 0% 0% / 0.42);
+  }
+
+  .lanyard-accent {
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(90deg, var(--project-accent) 0%, hsl(var(--foreground) / 0.55) 100%);
+  }
+
   .font-display {
     font-family: "Montserrat", "Helvetica", sans-serif;
   }
