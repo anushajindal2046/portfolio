@@ -30,6 +30,37 @@ const projects = [
     highlights: ["Socket.IO real-time features", "Redis caching layer", "Jest & Puppeteer testing"],
     github: "https://github.com/anushajindal2046",
   },
+  {
+    num: "04",
+    title: "AI Resume Analyzer + Company Fit Predictor",
+    subtitle: "AI-powered Resume & Fit Analysis",
+    tech: ["React.js", "Node.js", "Express.js", "MongoDB", "NLP"],
+    description: "Automated resume analysis and candidate evaluation system supporting multiple document formats (PDF, DOCX).",
+    highlights: [
+      "Resume parsing for PDF/DOCX",
+      "Skill gap analysis engine (50+ parameters)",
+      "Company fit prediction model (+25% accuracy)",
+      "Weighted scoring for candidate evaluation",
+      "Responsive React interface for usability"
+    ],
+    github: "https://github.com/anushajindal2046",
+  },
+  {
+    num: "05",
+    title: "B-ware: AI-Powered Claim Verification Platform",
+    subtitle: "AI-driven Claim Detection & Verification",
+    tech: ["React.js", "Node.js", "Express.js", "MySQL", "Redis", "Python (NLP)", "Docker"],
+    description: "Real-time claim detection, analysis, and verification platform with advanced NLP microservices.",
+    highlights: [
+      "NLP microservices for evidence extraction",
+      "Credibility scoring & trending analytics",
+      "Scalable backend API with secure auth",
+      "Responsive React dashboard",
+      "Dockerized services for deployment",
+      "Automated testing pipelines (frontend & NLP)"
+    ],
+    github: "https://github.com/anushajindal2046",
+  },
 ];
 
 const ProjectsSection = () => (

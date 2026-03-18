@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
+import type { MouseEvent } from "react";
 import { Menu, X, Sun, Moon, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+
+type ViewTransitionDocument = Document & {
+  startViewTransition?: (updateCallback: () => void) => void;
+};
 
 const navLinks = [
   { label: "HOME", href: "#home" },
@@ -16,6 +21,30 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isDark, setIsDark] = useState(true);
+
+  const handleThemeToggle = (event: MouseEvent<HTMLButtonElement>) => {
+    const button = event.currentTarget;
+    const rect = button.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
+    const root = document.documentElement;
+
+    root.style.setProperty("--vt-x", `${x}px`);
+    root.style.setProperty("--vt-y", `${y}px`);
+
+    const nextThemeIsDark = !isDark;
+    const doc = document as ViewTransitionDocument;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (doc.startViewTransition && !reducedMotion) {
+      doc.startViewTransition(() => {
+        setIsDark(nextThemeIsDark);
+      });
+      return;
+    }
+
+    setIsDark(nextThemeIsDark);
+  };
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -55,8 +84,8 @@ const Navbar = () => {
           <div className="hidden lg:flex items-center gap-4">
             <motion.button
               whileTap={{ scale: 0.9 }}
-              onClick={() => setIsDark((prev) => !prev)}
-              className="relative w-14 h-7 rounded-full bg-secondary border border-border flex items-center px-1 cursor-pointer transition-colors duration-500"
+              onClick={handleThemeToggle}
+              className="relative w-14 h-7 rounded-full bg-secondary border border-border text-foreground flex items-center px-1 cursor-pointer transition-colors duration-700"
               aria-label="Toggle theme"
             >
               <motion.div
@@ -67,10 +96,10 @@ const Navbar = () => {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={isDark ? "moon" : "sun"}
-                    initial={{ rotate: -180, opacity: 0, scale: 0 }}
+                    initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
                     animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                    exit={{ rotate: 180, opacity: 0, scale: 0 }}
-                    transition={{ duration: 0.3 }}
+                    exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
+                    transition={{ duration: 0.32, ease: "easeInOut" }}
                   >
                     {isDark ? <Moon size={12} className="text-primary-foreground" /> : <Sun size={12} className="text-primary-foreground" />}
                   </motion.div>
@@ -78,7 +107,7 @@ const Navbar = () => {
               </motion.div>
             </motion.button>
             <a
-              href="/Anusha_Jindal_Resume_Latest.pdf"
+              href="/Anusha_Jindal_Resume.pdf"
               download
               target="_blank"
               rel="noopener noreferrer"
@@ -91,15 +120,26 @@ const Navbar = () => {
           <div className="flex lg:hidden items-center gap-3">
             <motion.button
               whileTap={{ scale: 0.9 }}
-              onClick={() => setIsDark((prev) => !prev)}
-              className="relative w-12 h-6 rounded-full bg-secondary border border-border flex items-center px-0.5 cursor-pointer"
+              onClick={handleThemeToggle}
+              className="relative w-12 h-6 rounded-full bg-secondary border border-border text-foreground flex items-center px-0.5 cursor-pointer transition-colors duration-700"
+              aria-label="Toggle theme"
             >
               <motion.div
                 className="w-5 h-5 rounded-full bg-foreground flex items-center justify-center"
                 animate={{ x: isDark ? 0 : 20 }}
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
               >
-                {isDark ? <Moon size={10} className="text-primary-foreground" /> : <Sun size={10} className="text-primary-foreground" />}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={isDark ? "moon-mobile" : "sun-mobile"}
+                    initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
+                    animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                    exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
+                    transition={{ duration: 0.32, ease: "easeInOut" }}
+                  >
+                    {isDark ? <Moon size={10} className="text-primary-foreground" /> : <Sun size={10} className="text-primary-foreground" />}
+                  </motion.div>
+                </AnimatePresence>
               </motion.div>
             </motion.button>
             <button onClick={() => setIsOpen(!isOpen)} className="text-foreground">
@@ -132,7 +172,7 @@ const Navbar = () => {
                 </motion.a>
               ))}
               <a
-                href="/Anusha_Jindal_Resume_Latest.pdf"
+                href="/Anusha_Jindal_Resume.pdf"
                 download
                 target="_blank"
                 rel="noopener noreferrer"

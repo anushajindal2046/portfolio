@@ -25,7 +25,7 @@ const ResumeSection = () => (
               resume for detailed review.
             </p>
             <a
-              href="/Anusha_Jindal_Resume_Latest.pdf"
+              href="/Anusha_Jindal_Resume.pdf"
               download
               target="_blank"
               rel="noopener noreferrer"
@@ -41,7 +41,7 @@ const ResumeSection = () => (
         <div className="border border-border bg-card/60 rounded-lg overflow-hidden">
           <div className="hidden md:block h-[520px]">
             <object
-              data="/Anusha_Jindal_Resume_Latest.pdf"
+              data="/Anusha_Jindal_Resume.pdf"
               type="application/pdf"
               className="w-full h-full"
             >
@@ -50,14 +50,22 @@ const ResumeSection = () => (
               </div>
             </object>
           </div>
-          <div className="md:hidden px-6 py-10 text-xs text-muted-foreground leading-relaxed space-y-3">
-            <p>
-              For the best experience on mobile, tap the download button above to open the full resume PDF in your
-              preferred viewer.
+          <div className="md:hidden px-6 py-10 text-xs text-muted-foreground leading-relaxed space-y-3 flex flex-col items-center">
+            <p className="mb-4 text-center">
+              PDF preview is not available on mobile.<br />
+              Tap below to download and view the resume in your preferred app.
             </p>
-            <p>
-              The resume includes a detailed breakdown of my technical skills, academic background, and project
-              experience in Java, MERN stack, system design, and backend engineering.
+            <a
+              href="/Anusha_Jindal_Resume.pdf"
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-7 py-3 bg-foreground text-primary-foreground text-[11px] font-semibold tracking-[0.18em] uppercase hover:opacity-90 transition-opacity mb-4"
+            >
+              <Download size={14} /> Download Resume
+            </a>
+            <p className="text-center">
+              The resume includes a detailed breakdown of my technical skills, academic background, and project experience in Java, MERN stack, system design, and backend engineering.
             </p>
           </div>
         </div>
