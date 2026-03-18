@@ -46,7 +46,7 @@ const LanyardProjectCard = ({ project, direction }: LanyardProjectCardProps) => 
   const showFallback = !project.image || imgFailed;
 
   return (
-    <div className="projects-shell mx-auto w-full max-w-[580px] lg:mx-0" style={{ "--project-accent": colors.accent, "--project-accent-soft": colors.accentSoft } as CSSProperties}>
+    <div className="projects-shell mx-auto w-full max-w-[500px] lg:mx-0" style={{ "--project-accent": colors.accent, "--project-accent-soft": colors.accentSoft } as CSSProperties}>
       <div className="lanyard-clip" aria-hidden="true" />
       <div className="lanyard-strap" aria-hidden="true" />
 
@@ -82,10 +82,10 @@ const LanyardProjectCard = ({ project, direction }: LanyardProjectCardProps) => 
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
         </div>
 
-        <footer className="flex items-center justify-between gap-3 bg-black/45 px-5 py-4">
+        <footer className="flex items-center justify-between gap-2.5 bg-black/45 px-3.5 py-3 sm:px-4 sm:py-3.5">
           <h3 className="truncate font-display text-[30px] leading-none hidden" aria-hidden="true" />
           <h3 className="truncate font-display text-3xl hidden" aria-hidden="true" />
-          <h3 className="truncate font-display text-lg font-semibold tracking-tight text-foreground">{project.name}</h3>
+          <h3 className="truncate font-display text-sm sm:text-base font-semibold tracking-tight text-foreground">{project.name}</h3>
           <span className="font-semibold text-[12px] tracking-[0.08em]" style={{ color: colors.accent }}>
             {project.year}
           </span>

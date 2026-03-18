@@ -1,12 +1,56 @@
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import ScrambleText from "./ScrambleText";
 
-const HeroSection = () => (
-    <section
-        id="home"
-        className="relative min-h-screen flex flex-col justify-center py-32 border-b border-border overflow-hidden"
-    >
+const ROLES = [
+    "Full-Stack Developer",
+    "Backend Developer",
+    "System Design Enthusiast",
+    "Problem Solver",
+];
+
+const ROLE_CHANGE_MS = 3200;
+
+const roleLineVariants = {
+    initial: { opacity: 0, y: 8 },
+    animate: {
+        opacity: 1,
+        y: 0,
+        transition: { staggerChildren: 0.11, delayChildren: 0.02, ease: "easeOut" },
+    },
+    exit: {
+        opacity: 0,
+        y: -8,
+        transition: { staggerChildren: 0.08, staggerDirection: -1, ease: "easeInOut" },
+    },
+};
+
+const roleWordVariants = {
+    initial: { opacity: 0, y: 8 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.22, ease: "easeOut" } },
+    exit: { opacity: 0, y: -8, transition: { duration: 0.16, ease: "easeInOut" } },
+};
+
+const HeroSection = () => {
+    const [roleIndex, setRoleIndex] = useState(0);
+    const prefersReducedMotion = useReducedMotion();
+
+    useEffect(() => {
+        const intervalId = window.setInterval(() => {
+            setRoleIndex((prev) => (prev + 1) % ROLES.length);
+        }, ROLE_CHANGE_MS);
+
+        return () => window.clearInterval(intervalId);
+    }, []);
+
+    const activeRole = ROLES[roleIndex];
+
+    return (
+        <section
+            id="home"
+            className="relative flex min-h-screen flex-col justify-center overflow-hidden border-b border-border py-24 sm:py-28"
+        >
         {/* Corner marks */}
         <div className="absolute top-8 left-6 lg:left-12 text-muted-foreground/20 text-xs font-mono">+</div>
         <div className="absolute top-8 right-6 lg:right-12 text-muted-foreground/20 text-xs font-mono">+</div>
@@ -23,23 +67,51 @@ const HeroSection = () => (
             }}
         />
 
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-12 w-full">
+        <div className="layout-shell w-full">
             <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
+                aria-live="polite"
+                aria-atomic="true"
             >
-                <p className="text-[10px] tracking-[0.35em] text-muted-foreground font-medium uppercase mb-8">
-                    00 — Full Stack Developer
+                <p className="mb-6 text-[10px] font-medium uppercase tracking-[0.3em] text-muted-foreground">
+                    <span>00 — </span>
+                    <span className="sr-only">{activeRole}</span>
+                    <AnimatePresence mode="wait">
+                        <motion.span
+                            key={activeRole}
+                            aria-hidden="true"
+                            variants={prefersReducedMotion ? undefined : roleLineVariants}
+                            initial={prefersReducedMotion ? { opacity: 1 } : "initial"}
+                            animate={prefersReducedMotion ? { opacity: 1 } : "animate"}
+                            exit={prefersReducedMotion ? { opacity: 1 } : "exit"}
+                            transition={{ duration: prefersReducedMotion ? 0 : 0.28, ease: "easeOut" }}
+                            className="inline-block font-accent"
+                        >
+                            {activeRole.split(" ").map((word, idx) => (
+                                <motion.span
+                                    key={`${word}-${idx}`}
+                                    variants={prefersReducedMotion ? undefined : roleWordVariants}
+                                    initial={prefersReducedMotion ? { opacity: 1 } : "initial"}
+                                    animate={prefersReducedMotion ? { opacity: 1 } : "animate"}
+                                    exit={prefersReducedMotion ? { opacity: 1 } : "exit"}
+                                    className="mr-1.5 inline-block"
+                                >
+                                    {word}
+                                </motion.span>
+                            ))}
+                        </motion.span>
+                    </AnimatePresence>
                 </p>
             </motion.div>
 
-            <div className="mb-10">
+            <div className="mb-8 sm:mb-10">
                 <motion.h1
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                    className="font-display text-6xl sm:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[0.95] tracking-tight text-foreground"
+                    className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.98] tracking-tight text-foreground"
                 >
                     <ScrambleText text="Anusha" startDelay={400} />
                     <br />
@@ -51,9 +123,9 @@ const HeroSection = () => (
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-                className="flex flex-col sm:flex-row sm:items-end justify-between gap-8 max-w-4xl"
+                className="flex max-w-4xl flex-col justify-between gap-6 sm:flex-row sm:items-end"
             >
-                <p className="max-w-md text-sm text-muted-foreground leading-[1.8]">
+                <p className="max-w-md text-xs sm:text-sm text-muted-foreground leading-[1.8]">
                     Building scalable backend systems with Spring Boot &amp; Node.js. Passionate about
                     microservices, clean architecture, and real-time applications.
                 </p>
@@ -86,7 +158,7 @@ const HeroSection = () => (
                     </a>
                     <a
                         href="#about"
-                        className="inline-flex items-center gap-2 px-7 py-3 bg-foreground text-primary-foreground text-[11px] font-semibold tracking-[0.18em] uppercase hover:opacity-90 transition-opacity"
+                        className="inline-flex items-center gap-2 bg-foreground px-6 py-2.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary-foreground transition-opacity hover:opacity-90"
                     >
                         View Work
                     </a>
@@ -108,7 +180,8 @@ const HeroSection = () => (
                 <ArrowDown size={16} className="text-muted-foreground/40" strokeWidth={1.5} />
             </motion.div>
         </motion.div>
-    </section>
-);
+        </section>
+    );
+};
 
 export default HeroSection;

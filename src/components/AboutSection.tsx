@@ -15,27 +15,27 @@ const AboutSection = () => (
     <div className="absolute top-8 left-6 lg:left-12 text-muted-foreground/20 text-xs font-mono">+</div>
     <div className="absolute top-8 right-6 lg:right-12 text-muted-foreground/20 text-xs font-mono">+</div>
 
-    <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-      <div className="grid lg:grid-cols-12 gap-16 lg:gap-20">
+    <div className="layout-shell">
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         {/* Left */}
         <div className="lg:col-span-5">
           <AnimatedSection>
             <p className="text-[10px] tracking-[0.3em] text-muted-foreground font-medium uppercase mb-4">
               01 — About Me
             </p>
-            <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] text-foreground mb-8">
+            <h2 className="font-display mb-6 text-3xl sm:text-4xl lg:text-5xl font-bold leading-[1.08] text-foreground">
               Full Stack Developer
             </h2>
           </AnimatedSection>
 
           <AnimatedSection delay={0.15}>
-            <p className="text-sm text-muted-foreground leading-[1.8] mb-6">
+            <p className="mb-5 text-xs sm:text-sm text-muted-foreground leading-[1.8]">
               I'm a results-driven Full Stack Developer with strong expertise in web development, Java, system design, and database management. With a solid foundation in Data Structures & Algorithms, DBMS, OS, and Computer Networks, I build production-ready applications that scale.
             </p>
-            <p className="text-sm text-muted-foreground leading-[1.8] mb-6">
+            <p className="mb-5 text-xs sm:text-sm text-muted-foreground leading-[1.8]">
               My passion lies in microservices architecture, MVC patterns, RESTful APIs, and creating secure authentication systems. I specialize in Spring Boot backend development, real-time applications with Node.js, and building efficient systems that prioritize performance and security.
             </p>
-            <p className="text-sm text-muted-foreground leading-[1.8]">
+            <p className="text-xs sm:text-sm text-muted-foreground leading-[1.8]">
               Whether architecting complex systems or optimizing database queries, I'm committed to delivering solutions that solve real-world problems with clean, maintainable code.
             </p>
           </AnimatedSection>

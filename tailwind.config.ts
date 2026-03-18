@@ -8,20 +8,17 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1160px",
       },
     },
     extend: {
       fontFamily: {
-        sans: ["Open Sans", "Roboto", "Lato", "Helvetica", "sans-serif"],
-        display: ["Montserrat", "Helvetica", "sans-serif"],
-        accent: ["Montserrat", "Helvetica", "sans-serif"],
-        roboto: ["Roboto", "sans-serif"],
-        lato: ["Lato", "sans-serif"],
-        opensans: ["Open Sans", "sans-serif"],
-        mono: ["Space Mono", "monospace"],
+        sans: ["Inter", "Segoe UI", "Helvetica", "sans-serif"],
+        display: ["Playfair Display", "Georgia", "serif"],
+        accent: ["JetBrains Mono", "monospace"],
+        mono: ["JetBrains Mono", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",

@@ -12,7 +12,7 @@ const PROJECTS = [
     year: "2025",
     image: "./bware.png",
     desc: "Built an AI-driven platform for real-time claim verification with NLP microservices for evidence extraction, credibility scoring, secure APIs, and Dockerized deployment.",
-    tech: ["React.js", "Node.js", "Express.js", "MySQL", "Redis", "Python (NLP)", "Docker"],
+    tech: ["React.js", "Node.js", "Express.js", "MySQL", "Redis", "Python (NLP)"],
     github: "https://github.com/anushajindal2046",
     live: "https://github.com/anushajindal2046",
   },
@@ -109,12 +109,12 @@ const ProjectsSection = () => {
       <div className="projects-orb projects-orb-left" aria-hidden="true" />
       <div className="projects-orb projects-orb-right" aria-hidden="true" />
 
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+      <div className="layout-shell">
         <AnimatedSection>
           <div className="mb-8 flex flex-wrap items-center justify-between gap-4 lg:mb-10">
-            <div className="flex min-w-0 items-center gap-4 lg:gap-5">
+            <div className="flex min-w-0 items-center gap-3 sm:gap-4 lg:gap-5">
               <span className="font-mono text-sm font-semibold tracking-[0.3em] text-muted-foreground">04</span>
-              <h2 className="font-display text-4xl font-bold text-foreground sm:text-5xl">Projects</h2>
+              <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">Projects</h2>
               <span className="hidden h-px min-w-[120px] flex-1 bg-border/60 lg:block" />
             </div>
 
@@ -165,7 +165,7 @@ const ProjectsSection = () => {
                   animate="center"
                   exit="exit"
                   transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  className="grid grid-cols-1 gap-7 lg:grid-cols-[minmax(330px,48%),1fr] lg:items-start lg:gap-8"
+                  className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(270px,42%),1fr] lg:items-start lg:gap-6"
                 >
                   <LanyardProjectCard project={project} direction={direction} />
 
@@ -173,9 +173,9 @@ const ProjectsSection = () => {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.08, duration: 0.45 }}
-                    className="relative overflow-hidden rounded-2xl border border-border/70 bg-background/70 p-6 sm:p-7"
+                    className="relative overflow-hidden rounded-xl border border-border/70 bg-background/70 p-4 sm:p-5"
                   >
-                    <div className="mb-6 flex items-center justify-between gap-3">
+                    <div className="mb-5 flex items-center justify-between gap-3">
                       <span className="text-[11px] font-semibold tracking-[0.22em] text-muted-foreground">
                         PROJECT {projectNumber}
                       </span>
@@ -184,16 +184,16 @@ const ProjectsSection = () => {
                       </span>
                     </div>
 
-                    <h3 className="font-display text-4xl font-semibold leading-tight text-foreground">
+                    <h3 className="font-display text-2xl sm:text-3xl font-semibold leading-tight text-foreground">
                       {project.name}
                     </h3>
-                    <p className="mt-2 text-[14px] text-muted-foreground">{project.subtitle}</p>
+                    <p className="mt-2 text-[12px] sm:text-[13px] text-muted-foreground">{project.subtitle}</p>
 
-                    <div className="my-5 h-px w-full bg-border/55" />
+                    <div className="my-4 h-px w-full bg-border/55" />
 
-                    <p className="text-[15px] leading-[1.9] text-muted-foreground/88">{project.desc}</p>
+                    <p className="text-[13px] sm:text-[14px] leading-[1.8] text-muted-foreground/88">{project.desc}</p>
 
-                    <div className="mt-6 flex flex-wrap gap-2">
+                    <div className="mt-5 flex flex-wrap gap-2">
                       {project.tech.map((item) => (
                         <span
                           key={item}
@@ -204,7 +204,7 @@ const ProjectsSection = () => {
                       ))}
                     </div>
 
-                    <div className="mt-8 flex flex-wrap gap-3">
+                    <div className="mt-6 flex flex-wrap gap-3">
                       <a
                         href={project.live}
                         target="_blank"

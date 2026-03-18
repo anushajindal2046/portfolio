@@ -64,12 +64,12 @@ const Navbar = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "glass-dark" : "bg-transparent"
         }`}
     >
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between h-20">
-          <a href="#home" className="font-display italic text-xl tracking-wide text-foreground">
+      <div className="layout-shell">
+        <div className="flex h-16 items-center justify-between sm:h-18">
+          <a href="#home" className="font-display text-lg tracking-wide text-foreground">
           </a>
 
-          <div className="hidden lg:flex items-center gap-10">
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -85,7 +85,7 @@ const Navbar = () => {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={handleThemeToggle}
-              className="relative w-14 h-7 rounded-full bg-secondary border border-border text-foreground flex items-center px-1 cursor-pointer transition-colors duration-700"
+              className="relative w-14 h-7 rounded-full bg-secondary border border-border text-foreground flex items-center px-1 cursor-pointer transition-colors duration-300"
               aria-label="Toggle theme"
             >
               <motion.div
@@ -99,7 +99,7 @@ const Navbar = () => {
                     initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
                     animate={{ rotate: 0, opacity: 1, scale: 1 }}
                     exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
-                    transition={{ duration: 0.32, ease: "easeInOut" }}
+                    transition={{ duration: 0.16, ease: "easeInOut" }}
                   >
                     {isDark ? <Moon size={12} className="text-primary-foreground" /> : <Sun size={12} className="text-primary-foreground" />}
                   </motion.div>
@@ -121,7 +121,7 @@ const Navbar = () => {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={handleThemeToggle}
-              className="relative w-12 h-6 rounded-full bg-secondary border border-border text-foreground flex items-center px-0.5 cursor-pointer transition-colors duration-700"
+              className="relative w-12 h-6 rounded-full bg-secondary border border-border text-foreground flex items-center px-0.5 cursor-pointer transition-colors duration-300"
               aria-label="Toggle theme"
             >
               <motion.div
@@ -135,7 +135,7 @@ const Navbar = () => {
                     initial={{ rotate: -90, opacity: 0, scale: 0.6 }}
                     animate={{ rotate: 0, opacity: 1, scale: 1 }}
                     exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
-                    transition={{ duration: 0.32, ease: "easeInOut" }}
+                    transition={{ duration: 0.16, ease: "easeInOut" }}
                   >
                     {isDark ? <Moon size={10} className="text-primary-foreground" /> : <Sun size={10} className="text-primary-foreground" />}
                   </motion.div>
@@ -157,7 +157,7 @@ const Navbar = () => {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden bg-background border-t border-border overflow-hidden"
           >
-            <div className="px-6 py-8 flex flex-col gap-6">
+            <div className="px-4 py-6 sm:px-5 sm:py-7 flex flex-col gap-5">
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}

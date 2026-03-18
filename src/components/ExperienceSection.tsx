@@ -27,7 +27,7 @@ const experiences = [
 
 const ExperienceSection = () => (
   <section id="experience" className="py-16 lg:py-20 border-t border-border relative">
-    <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <div className="layout-shell">
       <AnimatedSection>
         <div className="flex items-center gap-3 mb-6">
           <Briefcase size={18} className="text-accent" strokeWidth={1.5} />
@@ -44,8 +44,8 @@ const ExperienceSection = () => (
             >
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
                 <div>
-                  <p className="text-sm font-semibold text-foreground leading-snug">{exp.title}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{exp.subtitle}</p>
+                  <p className="text-xs sm:text-sm font-semibold text-foreground leading-snug">{exp.title}</p>
+                  <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">{exp.subtitle}</p>
                 </div>
                 <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
                   {index === 0 ? "Outreach" : "Core Member"}

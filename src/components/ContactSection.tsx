@@ -67,15 +67,15 @@ const ContactSection = () => {
       <div className="absolute top-8 left-6 lg:left-12 text-muted-foreground/20 text-xs font-mono">+</div>
       <div className="absolute top-8 right-6 lg:right-12 text-muted-foreground/20 text-xs font-mono">+</div>
 
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24">
+      <div className="layout-shell">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left */}
           <div>
             <AnimatedSection>
               <p className="text-[10px] tracking-[0.3em] text-muted-foreground font-medium uppercase mb-4">
                 04 — Get In Touch
               </p>
-              <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+              <h2 className="font-display mb-5 text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
                 Let’s Connect &
                 <br />
                 <span>Collaborate</span>
@@ -83,7 +83,7 @@ const ContactSection = () => {
             </AnimatedSection>
 
             <AnimatedSection delay={0.1}>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-10 max-w-md">
+              <p className="mb-8 max-w-md text-xs sm:text-sm text-muted-foreground leading-relaxed">
                 I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
               </p>
 
@@ -107,7 +107,7 @@ const ContactSection = () => {
 
               <a
                 href="#"
-                className="inline-flex items-center gap-2 px-8 py-3.5 bg-foreground text-primary-foreground text-[11px] font-semibold tracking-[0.15em] uppercase hover:opacity-90 transition-opacity"
+                className="inline-flex items-center gap-2 bg-foreground px-6 py-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-primary-foreground transition-opacity hover:opacity-90"
               >
                 Download Resume
               </a>
