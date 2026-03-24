@@ -1,66 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Github } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
 import LanyardProjectCard from "./LanyardProjectCard";
-
-const PROJECTS = [
-  {
-    id: "b-ware-claims",
-    name: "B-ware: AI-Powered Claim Verification Platform",
-    subtitle: "Claim Detection, Analysis, and Verification",
-    year: "2025",
-    image: "./bware.png",
-    desc: "Built an AI-driven platform for real-time claim verification with NLP microservices for evidence extraction, credibility scoring, secure APIs, and Dockerized deployment.",
-    tech: ["React.js", "Node.js", "Express.js", "MySQL", "Redis", "Python (NLP)"],
-    github: "https://github.com/anushajindal2046",
-    live: "https://github.com/anushajindal2046",
-  },
-  {
-    id: "resume-analyzer",
-    name: "AI Resume Analyzer + Company Fit Predictor",
-    subtitle: "AI-powered Resume & Fit Analysis",
-    year: "2025",
-    image: "./resume-ai.png",
-    desc: "Developed an AI-powered system for automated resume analysis and candidate evaluation with PDF and DOCX parsing, weighted skill-gap scoring, and company-fit prediction.",
-    tech: ["React.js", "Node.js", "Express.js", "MongoDB", "NLP"],
-    github: "https://github.com/anushajindal2046",
-    live: "https://github.com/anushajindal2046",
-  },
-  {
-    id: "scoopy-doo",
-    name: "Scoopy Doo",
-    subtitle: "Real-Time Dessert Commerce Suite",
-    year: "2024",
-    image: "",
-    desc: "Production-ready e-commerce build with JWT auth, role-based admin flows, and Socket.IO updates. Added Redis caching and test automation for consistent checkout reliability.",
-    tech: ["Node.js", "Express.js", "MongoDB", "Redis", "EJS"],
-    github: "https://github.com/anushajindal2046",
-    live: "https://github.com/anushajindal2046",
-  },
-  {
-    id: "fitness-point",
-    name: "Fitness Point",
-    subtitle: "Smart Fitness Tracking Platform",
-    year: "2024",
-    image: "",
-    desc: "End-to-end workout and nutrition tracking app with role-based dashboarding, goal progression, and personalized reminders over a modular service architecture.",
-    tech: ["Spring Boot", "Hibernate", "MySQL", "Thymeleaf"],
-    github: "https://github.com/anushajindal2046",
-    live: "https://github.com/anushajindal2046",
-  },
-  {
-    id: "quizzard",
-    name: "Quizzard",
-    subtitle: "Interactive Quiz App",
-    year: "2024",
-    image: "/quiz.png",
-    desc: "Dynamic quiz platform with real-time score calculation, instant feedback, and answer validation.",
-    tech: ["HTML", "CSS", "JavaScript"],
-    github: "https://github.com/anushajindal2046",
-    live: "https://github.com/anushajindal2046",
-  },
-];
+import { PROJECTS, sectionContent } from "@/data/data";
 
 const wrapIndex = (next: number) => (next + PROJECTS.length) % PROJECTS.length;
 
@@ -85,12 +28,12 @@ const ProjectsSection = () => {
   const projectNumber = useMemo(() => `${index + 1}`.padStart(2, "0"), [index]);
   const totalCount = useMemo(() => `${PROJECTS.length}`.padStart(2, "0"), []);
 
-  const goTo = (nextIndex: number, nextDirection: number) => {
+  const goTo = useCallback((nextIndex: number, nextDirection: number) => {
     setIndexDirection([wrapIndex(nextIndex), nextDirection]);
-  };
+  }, []);
 
-  const goNext = () => goTo(index + 1, 1);
-  const goPrev = () => goTo(index - 1, -1);
+  const goNext = useCallback(() => goTo(index + 1, 1), [goTo, index]);
+  const goPrev = useCallback(() => goTo(index - 1, -1), [goTo, index]);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -100,21 +43,17 @@ const ProjectsSection = () => {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [index]);
+  }, [goNext, goPrev]);
 
   return (
     <section id="projects" className="projects-stage py-16 lg:py-20 border-t border-border relative overflow-hidden">
-      <div className="absolute top-8 left-6 lg:left-12 text-muted-foreground/20 text-xs font-mono">+</div>
-      <div className="absolute top-8 right-6 lg:right-12 text-muted-foreground/20 text-xs font-mono">+</div>
-      <div className="projects-orb projects-orb-left" aria-hidden="true" />
-      <div className="projects-orb projects-orb-right" aria-hidden="true" />
 
       <div className="layout-shell">
         <AnimatedSection>
-          <div className="mb-8 flex flex-wrap items-center justify-between gap-4 lg:mb-10">
+          <div className="mb-7 flex flex-wrap items-center justify-between gap-3 lg:mb-8">
             <div className="flex min-w-0 items-center gap-3 sm:gap-4 lg:gap-5">
-              <span className="font-mono text-sm font-semibold tracking-[0.3em] text-muted-foreground">04</span>
-              <h2 className="font-display text-3xl font-bold text-foreground sm:text-4xl">Projects</h2>
+              <span className="font-mono text-xs font-semibold tracking-[0.26em] text-muted-foreground">04</span>
+              <h2 className="font-display text-2xl font-semibold text-foreground sm:text-3xl">{sectionContent.projects.title}</h2>
               <span className="hidden h-px min-w-[120px] flex-1 bg-border/60 lg:block" />
             </div>
 
@@ -122,23 +61,23 @@ const ProjectsSection = () => {
               <button
                 type="button"
                 onClick={goPrev}
-                className="inline-flex h-11 min-w-[112px] items-center justify-center rounded-xl border border-border/70 bg-card/55 px-4 text-sm font-semibold tracking-[0.1em] text-muted-foreground transition-all duration-300 hover:bg-card/80 hover:text-foreground"
+                className="inline-flex h-9 min-w-[86px] items-center justify-center rounded-lg border border-border/70 bg-card/55 px-3 text-xs font-semibold tracking-[0.08em] text-muted-foreground transition-all duration-300 hover:bg-card/80 hover:text-foreground"
                 aria-label="Previous project"
               >
-                <ArrowLeft size={14} className="mr-2" /> Prev
+                <ArrowLeft size={12} className="mr-1.5" /> Prev
               </button>
 
-              <div className="inline-flex h-11 min-w-[92px] items-center justify-center rounded-xl border border-border/70 bg-card/55 px-3 font-mono text-base tracking-[0.16em] text-muted-foreground">
+              <div className="inline-flex h-9 min-w-[78px] items-center justify-center rounded-lg border border-border/70 bg-card/55 px-2.5 font-mono text-sm tracking-[0.12em] text-muted-foreground">
                 {projectNumber} / {totalCount}
               </div>
 
               <button
                 type="button"
                 onClick={goNext}
-                className="inline-flex h-11 min-w-[112px] items-center justify-center rounded-xl border border-border/70 bg-card/55 px-4 text-sm font-semibold tracking-[0.1em] text-muted-foreground transition-all duration-300 hover:bg-card/80 hover:text-foreground"
+                className="inline-flex h-9 min-w-[86px] items-center justify-center rounded-lg border border-border/70 bg-card/55 px-3 text-xs font-semibold tracking-[0.08em] text-muted-foreground transition-all duration-300 hover:bg-card/80 hover:text-foreground"
                 aria-label="Next project"
               >
-                Next <ArrowRight size={14} className="ml-2" />
+                Next <ArrowRight size={12} className="ml-1.5" />
               </button>
             </div>
           </div>
@@ -173,18 +112,22 @@ const ProjectsSection = () => {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.08, duration: 0.45 }}
-                    className="relative overflow-hidden rounded-xl border border-border/70 bg-background/70 p-4 sm:p-5"
+                    className="relative overflow-hidden rounded-xl border p-4 sm:p-5"
+                    style={{
+                      borderColor: project.palette.border,
+                      background: `linear-gradient(135deg, ${project.palette.soft} 0%, hsl(var(--card) / 0.75) 45%, hsl(var(--background) / 0.72) 100%)`,
+                    }}
                   >
                     <div className="mb-5 flex items-center justify-between gap-3">
                       <span className="text-[11px] font-semibold tracking-[0.22em] text-muted-foreground">
                         PROJECT {projectNumber}
                       </span>
-                      <span className="rounded-lg border border-border/70 bg-card/70 px-3 py-1 text-[12px] font-medium tracking-[0.08em] text-muted-foreground">
+                      <span className="rounded-lg border bg-card/75 px-3 py-1 text-[12px] font-medium tracking-[0.08em] text-muted-foreground" style={{ borderColor: project.palette.border }}>
                         {project.year}
                       </span>
                     </div>
 
-                    <h3 className="font-display text-2xl sm:text-3xl font-semibold leading-tight text-foreground">
+                    <h3 className="font-display text-xl sm:text-2xl font-semibold leading-tight text-foreground">
                       {project.name}
                     </h3>
                     <p className="mt-2 text-[12px] sm:text-[13px] text-muted-foreground">{project.subtitle}</p>
@@ -197,7 +140,8 @@ const ProjectsSection = () => {
                       {project.tech.map((item) => (
                         <span
                           key={item}
-                          className="rounded-full border border-border/70 bg-card/75 px-3 py-1 text-[11px] font-medium text-secondary-foreground"
+                          className="rounded-full border bg-card/75 px-3 py-1 text-[11px] font-medium text-secondary-foreground"
+                          style={{ borderColor: project.palette.border }}
                         >
                           {item}
                         </span>
@@ -205,14 +149,16 @@ const ProjectsSection = () => {
                     </div>
 
                     <div className="mt-6 flex flex-wrap gap-3">
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-xl border border-border bg-card/70 px-5 py-2.5 text-sm font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-card"
-                      >
-                        <ArrowUpRight size={16} /> Website
-                      </a>
+                      {project.live ? (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 rounded-xl border border-border bg-card/70 px-5 py-2.5 text-sm font-semibold text-foreground transition-all duration-300 hover:-translate-y-0.5 hover:bg-card"
+                        >
+                          <ArrowUpRight size={16} /> Website
+                        </a>
+                      ) : null}
                       <a
                         href={project.github}
                         target="_blank"
@@ -229,7 +175,8 @@ const ProjectsSection = () => {
                           key={item.id}
                           type="button"
                           onClick={() => goTo(dotIndex, dotIndex > index ? 1 : -1)}
-                          className={`h-2.5 rounded-full transition-all duration-300 ${dotIndex === index ? "w-8 bg-foreground" : "w-2.5 bg-muted-foreground/35 hover:bg-muted-foreground/70"}`}
+                          className={`h-2.5 rounded-full transition-all duration-300 ${dotIndex === index ? "w-8" : "w-2.5 bg-muted-foreground/35 hover:bg-muted-foreground/70"}`}
+                          style={dotIndex === index ? { background: `linear-gradient(90deg, ${project.palette.from}, ${project.palette.to})` } : undefined}
                           aria-label={`Go to ${item.name}`}
                         />
                       ))}

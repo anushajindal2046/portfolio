@@ -1,41 +1,51 @@
 import { GraduationCap } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
-
-const education = [
-  { degree: "Bachelor of Engineering", institution: "Chitkara University", year: "2023–Present", score: "CGPA: 8.62" },
-  { degree: "Class XII", institution: "GMSSS Sec-16D, Chandigarh", year: "2023", score: "82.2%" },
-  { degree: "Class X", institution: "Amravati Vidyalaya, Panchkula", year: "2021", score: "94.6%" },
-];
+import { educationData, sectionContent } from "@/data/data";
 
 const EducationSection = () => (
   <section id="education" className="py-16 lg:py-20 border-t border-border relative">
+
     <div className="layout-shell">
       <AnimatedSection>
         <p className="text-[10px] tracking-[0.3em] text-muted-foreground font-medium uppercase mb-4 flex items-center gap-2">
           <GraduationCap size={14} className="text-accent" strokeWidth={1.5} />
-          05 — Education
+          {sectionContent.education.sectionLabel}
         </p>
-        <h2 className="font-display mb-10 text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-          Academic<br /><span>Background</span>
+        <h2 className="font-display mb-8 text-2xl sm:text-3xl lg:text-4xl font-semibold text-foreground">
+          Academic
+          <br />
+          <span>Background</span>
         </h2>
       </AnimatedSection>
 
       <AnimatedSection delay={0.12}>
-        <div className="space-y-0 border-t border-border">
-          {education.map((edu, i) => (
-            <div
-              key={i}
-              className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-7 border-b border-border group hover:bg-card/50 transition-colors duration-300 px-3 gap-3"
+        <div className="space-y-3">
+          {educationData.map((edu) => (
+            <article
+              key={edu.id}
+              className="rounded-lg border border-border/70 bg-card/45 p-4 sm:p-5 transition-colors duration-300 hover:bg-card/65"
             >
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-foreground leading-snug">{edu.degree}</p>
-                <p className="text-xs sm:text-sm text-muted-foreground mt-1">{edu.institution}</p>
-                <p className="text-[11px] text-muted-foreground/70 mt-0.5 font-mono">{edu.year}</p>
+              <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-semibold text-foreground leading-snug">{edu.degree}</p>
+                  <p className="mt-1 text-[13px] text-muted-foreground">{edu.institution}</p>
+                  <p className="mt-1 text-[11px] text-muted-foreground/70 font-mono">{edu.duration}</p>
+                </div>
+                {edu.score ? (
+                  <span className="inline-flex items-center rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-bold text-accent font-mono whitespace-nowrap">
+                    {edu.score}
+                  </span>
+                ) : null}
               </div>
-              <span className="inline-flex items-center px-3 py-1 text-xs sm:text-sm text-accent font-bold font-mono bg-accent/10 border border-accent/30 rounded-full whitespace-nowrap">
-                {edu.score}
-              </span>
-            </div>
+
+              {edu.highlights && edu.highlights.length > 0 ? (
+                <ul className="list-disc list-inside space-y-1 text-[12px] text-muted-foreground/90">
+                  {edu.highlights.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              ) : null}
+            </article>
           ))}
         </div>
       </AnimatedSection>

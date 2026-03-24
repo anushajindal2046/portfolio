@@ -1,21 +1,10 @@
 import { useMemo, useState } from "react";
 import type { CSSProperties } from "react";
 import { motion } from "framer-motion";
-
-type Project = {
-  id: string;
-  name: string;
-  subtitle: string;
-  year: string;
-  image: string;
-  desc: string;
-  tech: string[];
-  github: string;
-  live: string;
-};
+import type { PortfolioProject } from "@/data/data";
 
 type LanyardProjectCardProps = {
-  project: Project;
+  project: PortfolioProject;
   direction: number;
 };
 
@@ -29,24 +18,16 @@ const toInitials = (name: string) => {
   return parts.join("") || "PR";
 };
 
-const accentFromName = (name: string) => {
-  const hash = Array.from(name).reduce((acc, char) => acc + char.charCodeAt(0), 0);
-  const hue = hash % 360;
-
-  return {
-    accent: `hsl(${hue} 88% 58%)`,
-    accentSoft: `hsl(${hue} 85% 55% / 0.24)`,
-  };
-};
-
 const LanyardProjectCard = ({ project, direction }: LanyardProjectCardProps) => {
   const [imgFailed, setImgFailed] = useState(false);
   const initials = useMemo(() => toInitials(project.name), [project.name]);
-  const colors = useMemo(() => accentFromName(project.name), [project.name]);
   const showFallback = !project.image || imgFailed;
 
   return (
-    <div className="projects-shell mx-auto w-full max-w-[500px] lg:mx-0" style={{ "--project-accent": colors.accent, "--project-accent-soft": colors.accentSoft } as CSSProperties}>
+    <div
+      className="projects-shell mx-auto w-full max-w-[500px] lg:mx-0"
+      style={{ "--project-accent": project.palette.from, "--project-accent-soft": project.palette.soft } as CSSProperties}
+    >
       <div className="lanyard-clip" aria-hidden="true" />
       <div className="lanyard-strap" aria-hidden="true" />
 
@@ -56,7 +37,7 @@ const LanyardProjectCard = ({ project, direction }: LanyardProjectCardProps) => 
         animate={{ opacity: 1, rotate: 0, y: 0, x: 0 }}
         exit={{ opacity: 0, rotate: direction >= 0 ? 5 : -5, y: 18, x: direction >= 0 ? 22 : -22 }}
         transition={{ type: "spring", stiffness: 165, damping: 18, mass: 0.95 }}
-        whileHover={{ y: -6, scale: 1.015, boxShadow: `0 28px 70px -26px ${colors.accentSoft}` }}
+        whileHover={{ y: -6, scale: 1.015, boxShadow: `0 28px 70px -26px ${project.palette.soft}` }}
         className="lanyard-card"
       >
         <div className="lanyard-accent" />
@@ -72,21 +53,23 @@ const LanyardProjectCard = ({ project, direction }: LanyardProjectCardProps) => 
             <motion.img
               src={project.image}
               alt={project.name}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain p-2"
               onError={() => setImgFailed(true)}
-              whileHover={{ scale: 1.08 }}
+              whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             />
           )}
 
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+            style={{ background: `linear-gradient(180deg, transparent 0%, ${project.palette.soft} 100%)` }}
+          />
         </div>
 
-        <footer className="flex items-center justify-between gap-2.5 bg-black/45 px-3.5 py-3 sm:px-4 sm:py-3.5">
-          <h3 className="truncate font-display text-[30px] leading-none hidden" aria-hidden="true" />
-          <h3 className="truncate font-display text-3xl hidden" aria-hidden="true" />
+        <footer className="flex items-center justify-between gap-2.5 px-3.5 py-3 sm:px-4 sm:py-3.5" style={{ background: "rgba(0,0,0,0.55)" }}>
           <h3 className="truncate font-display text-sm sm:text-base font-semibold tracking-tight text-foreground">{project.name}</h3>
-          <span className="font-semibold text-[12px] tracking-[0.08em]" style={{ color: colors.accent }}>
+          <span className="font-semibold text-[12px] tracking-[0.08em]" style={{ color: project.palette.text }}>
             {project.year}
           </span>
         </footer>

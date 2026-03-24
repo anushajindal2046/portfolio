@@ -20,15 +20,7 @@ import {
   Wrench,
 } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
-
-const skillCategories = [
-  { title: "Languages", skills: ["Java", "C++", "Python", "SQL", "JavaScript", "HTML/CSS"] },
-  { title: "Frameworks", skills: ["Node.js", "Express", "Spring Boot", "React"] },
-  { title: "Databases", skills: ["MySQL", "MongoDB", "Redis"] },
-  { title: "Cloud & Tools", skills: ["AWS EC2", "AWS S3", "Git", "Postman", "VS Code", "Socket.IO"] },
-  { title: "Core Concepts", skills: ["DSA", "OOP", "DBMS", "OS", "Networks", "System Design"] },
-  { title: "Soft Skills", skills: ["Communication", "Leadership", "Team Management", "Problem Solving"] },
-];
+import { SKILL_CATEGORIES, sectionContent } from "@/data/data";
 
 const skillIconMap: Record<string, LucideIcon> = {
   Java: Code2,
@@ -63,47 +55,60 @@ const skillIconMap: Record<string, LucideIcon> = {
 };
 
 const SkillsSection = () => (
-  <section id="skills" className="py-16 lg:py-20 border-t border-border relative">
-    <div className="absolute top-8 left-6 lg:left-12 text-muted-foreground/20 text-xs font-mono">+</div>
-    <div className="absolute top-8 right-6 lg:right-12 text-muted-foreground/20 text-xs font-mono">+</div>
+  <section id="skills" className="py-16 lg:py-20 border-t border-border relative overflow-hidden">
 
     <div className="layout-shell">
       <AnimatedSection>
         <p className="text-[10px] tracking-[0.3em] text-muted-foreground font-medium uppercase mb-4">
-          03 — Technical Skills
+          {sectionContent.skills.sectionLabel}
         </p>
-        <h2 className="font-display mb-12 text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-          Tools &
+        <h2 className="font-display mb-10 text-2xl sm:text-3xl lg:text-4xl font-semibold text-foreground">
+          Tools &amp;
           <br />
           <span>Technologies</span>
         </h2>
       </AnimatedSection>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-        {skillCategories.map((cat, i) => (
-          <AnimatedSection key={cat.title} delay={i * 0.06}>
-            <div className="bg-background p-6 sm:p-7 lg:p-8 h-full group hover:bg-card transition-colors duration-500">
-              <h3 className="text-[10px] tracking-[0.25em] text-accent font-medium uppercase mb-6">{cat.title}</h3>
-              <div className="flex flex-wrap gap-2">
-                {cat.skills.map((skill, j) => (
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {SKILL_CATEGORIES.map((cat, i) => (
+          <motion.div
+            key={cat.title}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.45, delay: i * 0.05 }}
+            className="h-full rounded-lg border border-border/70 bg-card/35 p-4 sm:p-5 group hover:bg-card/55 transition-colors duration-300"
+          >
+            <motion.div
+              aria-hidden="true"
+              className="mb-4 h-[2px] w-16 rounded-full"
+              style={{ background: "linear-gradient(90deg, hsl(var(--accent)) 0%, transparent 100%)" }}
+              animate={{ x: [0, 22, 0], opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut", delay: i * 0.1 }}
+            />
+
+            <h3 className="mb-4 text-[10px] tracking-[0.2em] text-accent font-medium uppercase">{cat.title}</h3>
+            <div className="flex flex-wrap gap-2">
+              {cat.skills.map((skill, j) => {
+                const Icon = skillIconMap[skill] ?? Wrench;
+                return (
                   <motion.span
                     key={skill}
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
+                    initial={{ opacity: 0, scale: 0.92, y: 8 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    whileHover={{ y: -2, scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
                     viewport={{ once: true }}
-                    transition={{ delay: j * 0.04 + 0.2 }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs border border-border text-secondary-foreground hover:border-foreground/30 hover:text-foreground transition-all duration-500 cursor-default"
+                    transition={{ delay: j * 0.03 + i * 0.05 }}
+                    className="inline-flex items-center gap-1.5 rounded-md border border-border/75 bg-background/35 px-2.5 py-1 text-[11px] text-secondary-foreground hover:border-foreground/30 hover:text-foreground transition-all duration-300 cursor-default"
                   >
-                    {(() => {
-                      const Icon = skillIconMap[skill] ?? Wrench;
-                      return <Icon size={12} strokeWidth={1.8} />;
-                    })()}
+                    <Icon size={12} strokeWidth={1.8} />
                     {skill}
                   </motion.span>
-                ))}
-              </div>
+                );
+              })}
             </div>
-          </AnimatedSection>
+          </motion.div>
         ))}
       </div>
     </div>

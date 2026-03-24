@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 import ScrambleText from "./ScrambleText";
-
-const ROLES = [
-    "Full-Stack Developer",
-    "Backend Developer",
-    "System Design Enthusiast",
-    "Problem Solver",
-];
+import { HERO_ROLES, personalInfo, socialLinks } from "@/data/data";
 
 const ROLE_CHANGE_MS = 3200;
 
-const roleLineVariants = {
+const roleLineVariants: Variants = {
     initial: { opacity: 0, y: 8 },
     animate: {
         opacity: 1,
@@ -26,7 +21,7 @@ const roleLineVariants = {
     },
 };
 
-const roleWordVariants = {
+const roleWordVariants: Variants = {
     initial: { opacity: 0, y: 8 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.22, ease: "easeOut" } },
     exit: { opacity: 0, y: -8, transition: { duration: 0.16, ease: "easeInOut" } },
@@ -38,13 +33,13 @@ const HeroSection = () => {
 
     useEffect(() => {
         const intervalId = window.setInterval(() => {
-            setRoleIndex((prev) => (prev + 1) % ROLES.length);
+            setRoleIndex((prev) => (prev + 1) % HERO_ROLES.length);
         }, ROLE_CHANGE_MS);
 
         return () => window.clearInterval(intervalId);
     }, []);
 
-    const activeRole = ROLES[roleIndex];
+    const activeRole = HERO_ROLES[roleIndex];
 
     return (
         <section
@@ -52,10 +47,6 @@ const HeroSection = () => {
             className="relative flex min-h-screen flex-col justify-center overflow-hidden border-b border-border py-24 sm:py-28"
         >
         {/* Corner marks */}
-        <div className="absolute top-8 left-6 lg:left-12 text-muted-foreground/20 text-xs font-mono">+</div>
-        <div className="absolute top-8 right-6 lg:right-12 text-muted-foreground/20 text-xs font-mono">+</div>
-        <div className="absolute bottom-8 left-6 lg:left-12 text-muted-foreground/20 text-xs font-mono">+</div>
-        <div className="absolute bottom-8 right-6 lg:right-12 text-muted-foreground/20 text-xs font-mono">+</div>
 
         {/* Subtle grid background */}
         <div
@@ -111,7 +102,7 @@ const HeroSection = () => {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                    className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[0.98] tracking-tight text-foreground"
+                    className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold leading-[1] tracking-tight text-foreground"
                 >
                     <ScrambleText text="Anusha" startDelay={400} />
                     <br />
@@ -132,7 +123,7 @@ const HeroSection = () => {
 
                 <div className="flex items-center gap-4 shrink-0">
                     <a
-                        href="https://github.com/anushajindal2046"
+                        href={socialLinks.find((link) => link.id === "github")?.href || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="p-2.5 border border-border hover:border-foreground/30 text-muted-foreground hover:text-foreground transition-all duration-500"
@@ -150,7 +141,7 @@ const HeroSection = () => {
                         <Linkedin size={16} strokeWidth={1.5} />
                     </a>
                     <a
-                        href="mailto:anushajindal1940@gmail.com"
+                        href={`mailto:${personalInfo.email}`}
                         className="p-2.5 border border-border hover:border-foreground/30 text-muted-foreground hover:text-foreground transition-all duration-500"
                         aria-label="Email"
                     >

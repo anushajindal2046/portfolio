@@ -12,10 +12,14 @@ app.use(cors());
 app.use(express.json());
 
 const smtpPort = Number(process.env.SMTP_PORT || 587);
-const smtpSecure = process.env.SMTP_SECURE === "true";
+const smtpSecure = process.env.SMTP_SECURE === "true" || smtpPort === 465;
+const inferredService =
+  process.env.SMTP_SERVICE ||
+  (process.env.SMTP_HOST?.toLowerCase() === "smtp.gmail.com" ? "gmail" : "");
+
 const transporter = nodemailer.createTransport({
-  ...(process.env.SMTP_SERVICE
-    ? { service: process.env.SMTP_SERVICE }
+  ...(inferredService
+    ? { service: inferredService }
     : { host: process.env.SMTP_HOST, port: smtpPort, secure: smtpSecure }),
   auth: {
     user: process.env.SMTP_USER,
@@ -32,6 +36,10 @@ transporter.verify().then(
   },
 );
 
+app.get("/api/health", (_req, res) => {
+  res.json({ success: true, service: "contact-server" });
+});
+
 app.post("/api/contact", async (req, res) => {
   const { name, email, message } = req.body || {};
   const trimmedName = String(name || "").trim();
@@ -41,7 +49,7 @@ app.post("/api/contact", async (req, res) => {
   const smtpConfigured =
     Boolean(process.env.SMTP_USER) &&
     Boolean(process.env.SMTP_PASS) &&
-    process.env.SMTP_USER !== "your@gmail.com";
+    process.env.SMTP_USER !== "your@email.com";
 
   if (!trimmedName || !trimmedEmail || !trimmedMessage || !emailOk) {
     return res
@@ -57,7 +65,7 @@ app.post("/api/contact", async (req, res) => {
   }
 
   try {
-    await transporter.sendMail({
+    const info = await transporter.sendMail({
       from: process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER,
       to: process.env.CONTACT_TO_EMAIL || process.env.SMTP_USER,
       replyTo: trimmedEmail,
@@ -69,12 +77,12 @@ app.post("/api/contact", async (req, res) => {
       `.trim(),
     });
 
-    return res.json({ success: true });
+    return res.json({ success: true, messageId: info.messageId });
   } catch (error) {
     console.error("Error sending contact email:", error);
     return res
       .status(500)
-      .json({ success: false, error: "Failed to send email" });
+      .json({ success: false, error: "Failed to send email. Check SMTP credentials and app password." });
   }
 });
 
