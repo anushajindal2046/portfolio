@@ -77,7 +77,7 @@ const SkillsSection = () => (
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.45, delay: i * 0.05 }}
-            className="h-full rounded-lg border border-border/70 bg-card/35 p-4 sm:p-5 group hover:bg-card/55 transition-colors duration-300"
+            className="h-full rounded-xl border border-[var(--color-surface-strong-border)] bg-[var(--color-surface-strong)] p-5 sm:p-6 group backdrop-blur-[8px] hover:bg-[var(--color-surface-strong-hover)] transition-all duration-300"
           >
             <motion.div
               aria-hidden="true"

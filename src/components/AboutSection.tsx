@@ -45,7 +45,7 @@ const AboutSection = () => (
                 return (
                   <div
                     key={title}
-                    className="p-6 bg-card border border-border hover:border-foreground/20 transition-all duration-500 group hover-lift"
+                    className="rounded-xl p-6 bg-card border border-border hover:border-foreground/20 transition-all duration-500 group hover-lift"
                   >
                     <Icon size={20} className="text-accent mb-4 group-hover:scale-110 transition-transform duration-500" strokeWidth={1.5} />
                     <h4 className="text-sm font-semibold text-foreground tracking-wide mb-1">{title}</h4>

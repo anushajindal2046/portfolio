@@ -115,7 +115,7 @@ const ProjectsSection = () => {
                     className="relative overflow-hidden rounded-xl border p-4 sm:p-5"
                     style={{
                       borderColor: project.palette.border,
-                      background: `linear-gradient(135deg, ${project.palette.soft} 0%, hsl(var(--card) / 0.75) 45%, hsl(var(--background) / 0.72) 100%)`,
+                      background: `linear-gradient(135deg, ${project.palette.soft} 0%, var(--color-surface-strong) 48%, var(--card) 100%)`,
                     }}
                   >
                     <div className="mb-5 flex items-center justify-between gap-3">

@@ -19,8 +19,8 @@ Built with **React + TypeScript + Vite** on the frontend and **Node.js + Express
 
 ### 🛠 Tech Stack
 
-- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, React Router DOM, Lucide Icons  
-- **Backend**: Node.js, Express, NodeMailer, REST API + CORS  
+- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, Framer Motion, React Router DOM, Lucide Icons
+- **Backend**: Node.js, Express, NodeMailer, REST API + CORS
 - **Tooling**: ESLint, React Query (ready for data‑driven features)
 
 ---
@@ -44,8 +44,9 @@ npm install
 cp .env.example .env    # then fill in SMTP + email details
 ```
 
-- **Frontend**: `npm run dev` → `http://localhost:5173` (or your Vite port)  
-- **Backend**: `npm run server` → `http://localhost:5000` (contact API)
+- **Full stack (recommended)**: `npm run dev` → starts both frontend and backend together
+- **Frontend only**: `npm run dev:web`
+- **Backend only**: `npm run server` → `http://localhost:5000` (contact API)
 
 **Important**: For Gmail, use a **16‑character App Password** for `SMTP_PASS`, not your normal password.
 

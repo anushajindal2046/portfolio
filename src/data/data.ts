@@ -285,8 +285,8 @@ export const projectData: ProjectItem[] = [
     techStack: ["React", "Node.js", "Express", "MongoDB", "NLP"],
     image: "/images/projects/resume-ai.png",
     imageAlt: "Resume analyzer platform interface",
-    liveUrl: "https://github.com/anushajindal2046",
-    sourceUrl: "https://github.com/anushajindal2046",
+    liveUrl: "https://github.com/anushajindal2046/resume-ai.git",
+    sourceUrl: "https://github.com/anushajindal2046/resume-ai.git",
     palette: {
       from: "#16a34a",
       to: "#86efac",
@@ -305,8 +305,8 @@ export const projectData: ProjectItem[] = [
     techStack: ["Node.js", "Express", "MongoDB", "Redis", "EJS"],
     image: "/images/projects/scoopyDoo.png",
     imageAlt: "Scoopy Doo commerce app preview",
-    liveUrl: "https://github.com/anushajindal2046",
-    sourceUrl: "https://github.com/anushajindal2046",
+    liveUrl: "https://github.com/anushajindal2046/ScoopyDoo.git",
+    sourceUrl: "https://github.com/anushajindal2046/ScoopyDoo.git",
     palette: {
       from: "#c084fc",
       to: "#f472b6",
@@ -325,7 +325,7 @@ export const projectData: ProjectItem[] = [
     techStack: ["Spring Boot", "Hibernate", "MySQL", "Thymeleaf"],
     image: "/images/projects/fitnessPoint.png",
     imageAlt: "Fitness Point dashboard preview",
-    sourceUrl: "https://github.com/anushajindal2046",
+    sourceUrl: "https://github.com/anushajindal2046/FitnessPoint.git",
     palette: {
       from: "#f89820",
       to: "#b45309",
@@ -408,7 +408,7 @@ export const certificateData: CertificateItem[] = [
     issuer: "Microsoft",
     year: "2026",
     subtitle: "Introduction to generative AI and agents",
-    image: "/certificates/",
+    image: "/certificates/gen_ai.png",
   },
   {
     id: "google-cloud-gen-ai",

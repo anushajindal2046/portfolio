@@ -42,10 +42,10 @@ const LanyardProjectCard = ({ project, direction }: LanyardProjectCardProps) => 
       >
         <div className="lanyard-accent" />
 
-        <div className="relative aspect-[16/9] overflow-hidden border-b border-border/70 bg-card/60">
+        <div className="relative aspect-[16/9] overflow-hidden border-b border-border/70 bg-[var(--color-project-media-bg)]">
           {showFallback ? (
-            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-card via-muted/35 to-card">
-              <div className="flex h-28 w-28 items-center justify-center rounded-2xl border border-border/70 bg-card text-3xl font-bold tracking-[0.12em] text-foreground/90 shadow-xl">
+            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[var(--color-project-media-bg)] via-[var(--color-surface-strong)] to-[var(--card)]">
+              <div className="flex h-28 w-28 items-center justify-center rounded-2xl border border-border/70 bg-[var(--color-surface-strong)] text-3xl font-bold tracking-[0.12em] text-foreground/90 shadow-xl">
                 {initials}
               </div>
             </div>
@@ -67,7 +67,7 @@ const LanyardProjectCard = ({ project, direction }: LanyardProjectCardProps) => 
           />
         </div>
 
-        <footer className="flex items-center justify-between gap-2.5 px-3.5 py-3 sm:px-4 sm:py-3.5" style={{ background: "rgba(0,0,0,0.55)" }}>
+        <footer className="flex items-center justify-between gap-2.5 px-3.5 py-3 sm:px-4 sm:py-3.5" style={{ background: "var(--color-project-footer-bg)" }}>
           <h3 className="truncate font-display text-sm sm:text-base font-semibold tracking-tight text-foreground">{project.name}</h3>
           <span className="font-semibold text-[12px] tracking-[0.08em]" style={{ color: project.palette.text }}>
             {project.year}

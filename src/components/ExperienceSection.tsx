@@ -27,16 +27,16 @@ const ExperienceSection = () => (
             >
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
                 <div>
-                  <p className="text-xs sm:text-sm font-semibold text-foreground leading-snug">{exp.title}</p>
-                  <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">{exp.subtitle}</p>
+                  <p className="text-sm sm:text-base font-semibold text-foreground leading-snug">{exp.title}</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-1">{exp.subtitle}</p>
                 </div>
                 {exp.tag ? (
-                  <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+                  <span className="text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
                     {exp.tag}
                   </span>
                 ) : null}
               </div>
-              <ul className="list-disc list-inside space-y-1.5 text-xs text-muted-foreground leading-relaxed">
+              <ul className="list-disc list-inside space-y-1.5 text-[13px] text-muted-foreground leading-relaxed">
                 {exp.bullets.map((item) => (
                   <li key={item}>{item}</li>
                 ))}

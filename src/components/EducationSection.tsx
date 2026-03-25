@@ -23,23 +23,23 @@ const EducationSection = () => (
           {educationData.map((edu) => (
             <article
               key={edu.id}
-              className="rounded-lg border border-border/70 bg-card/45 p-4 sm:p-5 transition-colors duration-300 hover:bg-card/65"
+              className="rounded-xl border border-[var(--color-surface-strong-border)] bg-[var(--color-surface-strong)] p-5 sm:p-6 backdrop-blur-[8px] transition-all duration-300 hover:bg-[var(--color-surface-strong-hover)]"
             >
               <div className="mb-3 flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="text-sm font-semibold text-foreground leading-snug">{edu.degree}</p>
-                  <p className="mt-1 text-[13px] text-muted-foreground">{edu.institution}</p>
-                  <p className="mt-1 text-[11px] text-muted-foreground/70 font-mono">{edu.duration}</p>
+                  <p className="text-[15px] sm:text-base font-semibold text-foreground leading-snug">{edu.degree}</p>
+                  <p className="mt-1 text-sm text-muted-foreground">{edu.institution}</p>
+                  <p className="mt-1 text-xs text-muted-foreground/70 font-mono">{edu.duration}</p>
                 </div>
                 {edu.score ? (
-                  <span className="inline-flex items-center rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-[11px] font-bold text-accent font-mono whitespace-nowrap">
+                  <span className="inline-flex items-center rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-bold text-accent font-mono whitespace-nowrap">
                     {edu.score}
                   </span>
                 ) : null}
               </div>
 
               {edu.highlights && edu.highlights.length > 0 ? (
-                <ul className="list-disc list-inside space-y-1 text-[12px] text-muted-foreground/90">
+                <ul className="list-disc list-inside space-y-1 text-[13px] text-muted-foreground/90">
                   {edu.highlights.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
